@@ -44,9 +44,9 @@ async function registrationController (req, res) {
       password,
       emailVerified
     } = req.body
-    console.log(req.body)
+ 
     const existingUser = await newUser.findOne({ email })
-    console.log(existingUser)
+
     if (existingUser) {
       throw new Error('Email already registered')
     }

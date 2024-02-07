@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 const userList = require('../models/userSchema')
+
 async function emailVerifier(req, res){
 // const {authorization} = req.headers;
 const authorization = req.headers.authorization
 var decoded = jwt.verify(authorization, 'tuktak');
-console.log(decoded)
 
  const updateUser = await userList.findOneAndUpdate(
     {email: decoded.email},
