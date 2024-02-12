@@ -15,22 +15,29 @@ async function categoryController (req, res) {
 
 async function subcategoryController (req, res) {
   const { name, description, category } = req.body
-
   const duplicate = await subcategoryList.findOne({ name })
 
   if (!duplicate) {
-    const subcategory = new subcategoryList({ name, description, category })
-    subcategory.save();
+    const SubCategory = new subcategoryList({ name, description, category })
+    SubCategory.save()
 
     const updateCategory = await categoryList.findOneAndUpdate(
       { _id: category },
-      { $push: { subcategory: subcategory._id } },
-      { new: true })
+      // { $push: { subcategory: subcategory._id } },
+      { $push: { subcategory: SubCategory } },
+      { new: true }
+    )
 
-    if(!updateCategory){ return res.josn({error: "Category not found"})}
-
-    res.json({ success: true, message: ['Subcategory created successfully',
-    'Subcategory added to the category']})
+    if (!updateCategory) {
+      return res.josn({ error: 'Category not found' })
+    }
+    res.json({
+      success: true,
+      message: [
+        'Subcategory created successfully',
+        'Subcategory added to the category'
+      ]
+    })
   } else {
     res.json({ error: 'subcategory already exists' })
   }
