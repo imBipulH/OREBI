@@ -16,9 +16,9 @@ async function loginController (req, res) {
     return res.status(400).send({ error: 'Email is not registered' })
   } else {
     bcrypt.compare(password, existingUser.password).then(function (result) {
-      if(result){
-        return res.send({success: " login successful"})
-      }else{
+      if (result) {
+        return res.send({ success: ' login successful' })
+      } else {
         return res.status(400).send({ error: 'Invalid password' })
       }
     })
