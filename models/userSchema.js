@@ -13,11 +13,11 @@ const userSchema = new Schema({
   },
   telephone: {
     type: String,
-    required: true
+    // required: true
   },
   addressOne: {
     type: String,
-    required: true
+    // required: true
   },
   addressTwo: String,
   city: String,
@@ -36,7 +36,8 @@ const userSchema = new Schema({
   emailVerified: {
     type: Boolean,
     default: false
-  }
+  },
+  token: String
 })
 
 module.exports = mongoose.model('User', userSchema)

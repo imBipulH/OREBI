@@ -10,11 +10,11 @@ function validateFields (reqBody) {
   if (
     !reqBody.firstname ||
     !reqBody.email ||
-    !reqBody.addressOne ||
-    !reqBody.city ||
-    !reqBody.postcode ||
-    !reqBody.division ||
-    !reqBody.district ||
+    // !reqBody.addressOne ||
+    // !reqBody.city ||
+    // !reqBody.postcode ||
+    // !reqBody.division ||
+    // !reqBody.district ||
     !reqBody.password
   ) {
     throw new Error('All required fields must be provided')
@@ -50,8 +50,8 @@ async function registrationController (req, res) {
     if (existingUser) {
       throw new Error('Email already registered')
     }
-
-    bcrypt.hash(password, 10, function(err, hash) {
+    const token = jwt.sign({email}, 'tuktak');
+    bcrypt.hash(password, 10, async function(err, hash) {
         const users = new newUser({
           firstname: firstname || '',
           lastname: lastname,
@@ -64,15 +64,17 @@ async function registrationController (req, res) {
           division: division,
           district: district,
           password: hash,
-          emailVerified: emailVerified
+          emailVerified: emailVerified,
+          token: email
         })
-        users.save()
-        const token = jwt.sign({email}, 'tuktak');
+        await users.save()
+        // const token = jwt.sign({email}, 'tuktak');
         sendmail(email, "E-Commerce", emailTemplate(token))
-        res.status(201).send(users)
+        res.status(201).send({success: true, message: "Registered successfully!", users})
+   
     });   
   } catch (error) {
-    res.status(400).send({ error: error.message })
+    res.send({ error: error.message })
   }
 }
 

@@ -2,7 +2,8 @@ const express = require('express');
 const {categoryController, subcategoryController} = require('../../controller/catergoryController');
 const {categoryStatusController, subCategoryStatusController} = require('../../controller/categoryStatusController');
 const categoryList = require('../../models/categorySchema')
-const subcategoryList = require('../../models/subCategorySchema')
+const subcategoryList = require('../../models/subCategorySchema');
+const productSchema = require('../../models/productSchema');
 
 const router = express.Router();
 
@@ -16,6 +17,9 @@ router.get("/categorylist", async (req, res)=>{
 })
 router.get("/subcategorylist", async (req, res)=>{
     res.send(await subcategoryList.find({}))
+})
+router.get('/productlist', async(req, res)=>{
+    res.send(await productSchema.find({}).populate('varients'));
 })
 
 module.exports = router;
