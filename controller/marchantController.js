@@ -19,9 +19,14 @@ async function marchantController (req, res) {
   res.json({ success:'merchant created successfully' })
 }
 
+async function getAllUsers (req, res) {
+  const data = await UserList.find({});
+  res.send(data);
+}
+
 async function allStore (req, res) {
   const data = await merchantShema.find({}).populate('owner');
   res.send(data);
 }
 
-module.exports = {marchantController, allStore}
+module.exports = {marchantController, allStore, getAllUsers}

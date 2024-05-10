@@ -7,9 +7,9 @@ async function categoryController (req, res) {
   if (!duplicate) {
     const category = new categoryList({ name, description })
     category.save()
-    res.json({ success: 'catergory created successfully' })
+    res.json({ success: 'Catergory created successfully' })
   } else {
-    res.json({ error: 'category already exists' })
+    res.json({ error: 'Category already exists' })
   }
 }
 

@@ -46,9 +46,7 @@ async function productController (req, res) {
 
 async function varientController (req, res) {
   const { color, storage, ram, size, price, quantity, product } = req.body
-  console.log(req.body)
   const img_url = 'http://localhost:3005/public/temp/' + req.file.filename
-  console.log(img_url)
   const varient = new varientSchema({
     color,
     image: img_url,
