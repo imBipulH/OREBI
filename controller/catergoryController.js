@@ -31,6 +31,7 @@ async function subcategoryController (req, res) {
     if (!updateCategory) {
       return res.josn({ error: 'Category not found' })
     }
+    
     res.json({
       success: true,
       message: [

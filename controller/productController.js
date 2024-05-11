@@ -78,7 +78,7 @@ async function deleteProduct (req, res) {
 }
 
 async function allVariants (req, res) {
-  const data = await varientSchema.find({})
+  const data = await varientSchema.find({}).populate('product')
   // .populate('product')
   res.send(data)
 }
